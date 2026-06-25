@@ -1,0 +1,34 @@
+{
+  "name": "xdr_vector_index",
+  "type": "vectorSearch",
+  "definition": {
+    "fields": [
+      {
+        "type": "vector",
+        "path": "embedding",
+        "numDimensions": 384,
+        "similarity": "cosine"
+      },
+      {
+        "type": "filter",
+        "path": "host"
+      },
+      {
+        "type": "filter",
+        "path": "event_type"
+      },
+      {
+        "type": "filter",
+        "path": "embedding_status"
+      },
+      {
+        "type": "filter",
+        "path": "window_start"
+      },
+      {
+        "type": "filter",
+        "path": "window_end"
+      }
+    ]
+  }
+}

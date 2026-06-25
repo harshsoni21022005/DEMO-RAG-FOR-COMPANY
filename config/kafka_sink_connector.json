@@ -1,0 +1,41 @@
+{
+  "name": "xdr-mongodb-sink",
+  "config": {
+    "connector.class": "com.mongodb.kafka.connect.MongoSinkConnector",
+
+    "tasks.max": "2",
+
+    "topics": "xdr.events",
+
+    "connection.uri": "${file:/opt/kafka/secrets/mongodb.properties:connection.uri}",
+
+    "database": "xdr_db",
+    "collection": "xdr_events",
+
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+
+    "document.id.strategy": "com.mongodb.kafka.connect.sink.processor.id.strategy.UuidStrategy",
+    "document.id.strategy.overwrite.existing": "true",
+
+    "writemodel.strategy": "com.mongodb.kafka.connect.sink.writemodel.strategy.InsertOneDefaultStrategy",
+
+    "max.batch.size": "100",
+    "bulk.write.ordered": "false",
+
+    "errors.tolerance": "all",
+    "errors.deadletterqueue.topic.name": "xdr.events.dlq",
+    "errors.deadletterqueue.topic.replication.factor": "1",
+    "errors.deadletterqueue.context.headers.enable": "true",
+    "errors.log.enable": "true",
+    "errors.log.include.messages": "true",
+
+    "producer.override.max.block.ms": "10000",
+
+    "mongo.errors.tolerance": "all",
+
+    "topic.override.xdr.events.collection": "xdr_events",
+    "topic.override.xdr.events.document.id.strategy": "com.mongodb.kafka.connect.sink.processor.id.strategy.UuidStrategy"
+  }
+}
